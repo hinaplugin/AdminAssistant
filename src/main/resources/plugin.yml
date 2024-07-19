@@ -1,0 +1,39 @@
+name: AdminAssistant
+version: '${project.version}'
+main: com.hinaplugin.adminassistant.AdminAssistant
+api-version: '1.18'
+authors: [hina2113]
+description: 運営業務にあったら便利な機能
+
+commands:
+  admin:
+    permission: admin.command
+
+permissions:
+  admin.group:
+    children:
+      - admin.command
+      - admin.op
+      - admin.deop
+      - admin.tp
+      - admin.god
+      - admin.silent
+      - admin.health
+      - admin.food
+      - admin.invisible
+      - admin.nightvision
+      - admin.spectator
+    default: op
+
+  admin.command: {}
+  admin.op: {}
+  admin.deop: {}
+  admin.tp: {}
+  admin.god: {}
+  admin.silent: {}
+  admin.health: {}
+  admin.food: {}
+  admin.invisible: {}
+  admin.nightvision: {}
+  admin.spectator: {}
+  admin.silent.notice: {}
