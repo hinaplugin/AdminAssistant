@@ -19,6 +19,15 @@ public class Spectator extends Permissions {
                     }
                 };
                 runnable.runTaskLater(AdminAssistant.plugin, 0L);
+            }else {
+                final BukkitRunnable runnable = new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.setGameMode(AdminAssistant.plugin.getServer().getDefaultGameMode());
+                        player.sendMessage(AdminAssistant.message.getMessage("default"));
+                    }
+                };
+                runnable.runTaskLater(AdminAssistant.plugin, 0L);
             }
         }else {
             player.sendMessage(AdminAssistant.message.getMessage("permission-error"));
