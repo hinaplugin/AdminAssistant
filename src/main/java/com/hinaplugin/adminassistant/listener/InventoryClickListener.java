@@ -2,6 +2,8 @@ package com.hinaplugin.adminassistant.listener;
 
 import com.hinaplugin.adminassistant.AdminAssistant;
 import com.hinaplugin.adminassistant.system.CreatePanel;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -15,6 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class InventoryClickListener implements Listener {
 
@@ -28,6 +31,11 @@ public class InventoryClickListener implements Listener {
         }
 
         final ItemMeta itemMeta = itemStack.getItemMeta();
+
+        if (itemMeta == null){
+            return;
+        }
+
         final PersistentDataContainer container = itemMeta.getPersistentDataContainer();
         final NamespacedKey key = new NamespacedKey(AdminAssistant.plugin, "assistant");
         final String data = container.get(key, PersistentDataType.STRING);
@@ -40,8 +48,8 @@ public class InventoryClickListener implements Listener {
 
         switch (data){
             case "skull" -> {
-                final String targetNameComponent = itemMeta.getDisplayName();
-                final Player target = AdminAssistant.plugin.getServer().getPlayer(targetNameComponent);
+                final Component targetNameComponent = itemMeta.displayName();
+                final Player target = AdminAssistant.plugin.getServer().getPlayer(PlainTextComponentSerializer.plainText().serialize(Objects.requireNonNull(targetNameComponent)));
                 if (target == null){
                     player.sendMessage("§c" + targetNameComponent + "が見つかりませんでした．");
                     return;
